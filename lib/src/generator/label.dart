@@ -287,6 +287,7 @@ class Label {
   /// Generates label getter.
   String generateDartGetter() {
     try {
+      var name = _escape(this.name); // workaround-for-dot-in-key-name
       var content = _escape(this.content);
       var description = _escape(this.description ?? '');
 
@@ -1183,7 +1184,8 @@ class Label {
         .replaceAll('\b', '\\b')
         .replaceAll('\f', '\\f')
         .replaceAll('\'', '\\\'')
-        .replaceAll('\$', '\\\$');
+        .replaceAll('\$', '\\\$')
+        .replaceAll('.', ''); // workaround-for-dot-in-key-name
   }
 
   String _escapeDartDoc(String value) {
